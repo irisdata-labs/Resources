@@ -1,0 +1,83 @@
+milvus:
+  cluster:
+    enabled: true
+  components:
+    proxy:
+      replicaCount: 2
+      resources:
+        requests:
+          cpu: 250m
+          memory: 512Mi
+        limits:
+          cpu: 1
+          memory: 1Gi
+
+    queryNode:
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 2
+          memory: 4Gi
+        limits:
+          cpu: 4
+          memory: 8Gi
+
+    dataNode:
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 2
+          memory: 5Gi
+        limits:
+          cpu: 4
+          memory: 8Gi
+
+    indexNode:
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 4
+          memory: 8Gi
+        limits:
+          cpu: 8
+          memory: 16Gi
+
+    etcd:
+      replicaCount: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClass: gp3
+      resources:
+        requests:
+          cpu: 0.5
+          memory: 1Gi
+        limits:
+          cpu: 1
+          memory: 2Gi
+
+    pulsar:
+      bookkeeper:
+        replicaCount: 3
+        persistence:
+          size: 100Gi
+          storageClass: gp3
+        resources:
+          requests:
+            cpu: 1
+            memory: 4Gi
+          limits:
+            cpu: 2
+            memory: 6Gi
+
+s3:
+  enabled: true
+  bucketName: your-milvus-bucket
+  region: us-east-1
+  credentials:
+    accessKey: <YOUR_KEY>
+    secretKey: <YOUR_SECRET>
+  tieredStorage:
+    enabled: true
+    type: s3
+    retention: 7d
